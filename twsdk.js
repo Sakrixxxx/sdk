@@ -1703,25 +1703,20 @@
                     }
                 }
                 function getCoordinatesByVillageId(villageId, entityData) {
-                    try {
-                        const entity = entityData.find(item => item.villageId === villageId);
+                    const entity = entityData.find(item => item[0] === villageId);
                 
-                        if (entity) {
-                            return {
-                                villageId: entity.villageId,
-                                villageName: entity.villageName,
-                                villageX: entity.villageX,
-                                villageY: entity.villageY,
-                            };
-                        } else {
-                            throw new Error(`Village with ID ${villageId} not found.`);
-                        }
-                    } catch (error) {
-                        console.error(`Error in getCoordinatesByVillageId: ${error.message}`);
-                        console.log('entityData:', entityData);
-                        return null; // oder einen Standardwert zurückgeben
+                    if (entity) {
+                        return {
+                            villageId: entity[0],
+                            villageName: twSDK.cleanString(entity[1]),
+                            villageX: entity[2],
+                            villageY: entity[3],
+                        };
+                    } else {
+                        throw new Error(`Village with ID ${villageId} not found.`);
                     }
                 }
+                
                 
                 // decide what to do based on current time and last updated entity time
                 if (LAST_UPDATED_TIME !== null) {
