@@ -1483,17 +1483,6 @@
                 });
                 return data;
             },
-            getCoordinatesByVillageID: async function (villageID) {
-                const villageData = await this.worldDataAPI('village');
-                
-                const village = villageData.find(v => v.villageId === villageID);
-                
-                if (village) {
-                    return { x: village.villageX, y: village.villageY };
-                } else {
-                    throw new Error(`Village with ID ${villageID} not found.`);
-                }
-            },
             worldDataAPI: async function (entity) {
                 const TIME_INTERVAL = 60 * 60 * 1000; // fetch data every hour
                 const LAST_UPDATED_TIME = localStorage.getItem(
@@ -1675,7 +1664,26 @@
                         };
                     });
                 }
-    
+                function getCoordinatesByVillageId(villageId, entityData) {
+                    const entity = entityData.find(item => item.villageId === villageId);
+            
+                    if (entity) {
+                        return {
+                            villageId: entity.villageId,
+                            villageName: entity.villageName,
+                            villageX: entity.villageX,
+                            villageY: entity.villageY,
+                        };
+                    } else {
+                        throw new Error(`Village with ID ${villageId} not found.`);
+                    }
+                }
+            
+                // Verwende die Funktion, um die Koordinaten abzurufen
+                const coordinates = getCoordinatesByVillageId(villageId, worldData[entity]);
+            
+                return coordinates;
+            
                 // Helpers: Transform an array of objects into an array of arrays
                 function objectToArray(arrayOfObjects, entity) {
                     switch (entity) {
