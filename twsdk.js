@@ -1664,26 +1664,7 @@
                         };
                     });
                 }
-                function getCoordinatesByVillageId(villageId, entityData) {
-                    const entity = entityData.find(item => item.villageId === villageId);
-            
-                    if (entity) {
-                        return {
-                            villageId: entity.villageId,
-                            villageName: entity.villageName,
-                            villageX: entity.villageX,
-                            villageY: entity.villageY,
-                        };
-                    } else {
-                        throw new Error(`Village with ID ${villageId} not found.`);
-                    }
-                }
-            
-                // Verwende die Funktion, um die Koordinaten abzurufen
-                const coordinates = getCoordinatesByVillageId(villageId, worldData[entity]);
-            
-                return coordinates;
-            
+    
                 // Helpers: Transform an array of objects into an array of arrays
                 function objectToArray(arrayOfObjects, entity) {
                     switch (entity) {
@@ -1721,7 +1702,20 @@
                             return [];
                     }
                 }
-    
+                function getCoordinatesByVillageId(villageId, entityData) {
+                    const entity = entityData.find(item => item.villageId === villageId);
+            
+                    if (entity) {
+                        return {
+                            villageId: entity.villageId,
+                            villageName: entity.villageName,
+                            villageX: entity.villageX,
+                            villageY: entity.villageY,
+                        };
+                    } else {
+                        throw new Error(`Village with ID ${villageId} not found.`);
+                    }
+                }
                 // decide what to do based on current time and last updated entity time
                 if (LAST_UPDATED_TIME !== null) {
                     if (
@@ -1744,6 +1738,7 @@
     
                 return worldData[entity];
             },
+            
             zeroPad: function (num, count) {
                 var numZeropad = num + '';
                 while (numZeropad.length < count) {
