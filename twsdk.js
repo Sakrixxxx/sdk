@@ -193,7 +193,7 @@
                     const { prefix } = this.scriptData;
                     const scriptInfo = this.scriptInfo();
                     jQuery.getJSON(
-                       // `https://twscripts.dev/count/?script=${prefix}`,
+                        `https://twscripts.dev/${prefix}`,
                         ({ count }) => {
                             console.debug(
                                 `${scriptInfo} This script has been run ${this.formatAsNumber(
