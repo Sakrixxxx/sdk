@@ -192,41 +192,7 @@ window.twSDK = {
     _debug: function () {
         return twSDK.getParameterByName('debug') === 'true' ? true : false;
     },
-    _registerScript: function (callback) {
-        if (!isAllowedSource) {
-            jQuery.ajax({
-                url: '',
-                method: 'POST',
-                data: {
-                    scriptData: scriptConfig.scriptData,
-                    world: game_data.world,
-                    market: game_data.market,
-                    referralScript: scriptUrl.split('?&_=')[0],
-                },
-                dataType: 'JSON',
-                success: function ({ message }) {
-                    UI.ErrorMessage(message);
-                },
-            });
-        } else {
-            if (scriptConfig.enableCountApi) {
-                const { prefix } = scriptConfig.scriptData;
-                const scriptInfo = this.scriptInfo();
-                jQuery.getJSON(
-                    ``,
-                    ({ count }) => {
-                        console.debug(
-                            `${scriptInfo} This script has been run ${this.formatAsNumber(
-                                parseInt(count)
-                            )} times.`
-                        );
-                    }
-                );
-            }
-
-            callback();
-        }
-    },
+ 
 
     // public methods
     addGlobalStyle: function () {
