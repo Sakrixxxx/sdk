@@ -159,8 +159,8 @@
             // internal methods
             _initDebug: function () {
                 const scriptInfo = this.scriptInfo();
-                console.debug(`${scriptInfo} It works ðŸš€!`);
-                console.debug(`${scriptInfo} HELP:`, this.scriptData.helpLink);
+                console.debug(`${scriptInfo} Geladen`);
+                //console.debug(`${scriptInfo} HELP:`, this.scriptData.helpLink);
                 if (this.isDebug) {
                     console.debug(`${scriptInfo} Market:`, game_data.market);
                     console.debug(`${scriptInfo} World:`, game_data.world);
@@ -188,22 +188,22 @@
             _debug: function () {
                 return twSDK.getParameterByName('debug') === 'true' ? true : false;
             },
-            _registerScript: function () {
-                if (this.enableCountApi) {
-                    const { prefix } = this.scriptData;
-                    const scriptInfo = this.scriptInfo();
-                    jQuery.getJSON(
-                        `https://twscripts.dev/count/?script=${prefix}`,
-                        ({ count }) => {
-                            console.debug(
-                                `${scriptInfo} This script has been run ${this.formatAsNumber(
-                                    parseInt(count)
-                                )} times.`
-                            );
-                        }
-                    );
-                }
-            },
+            // _registerScript: function () {
+            //     if (this.enableCountApi) {
+            //         const { prefix } = this.scriptData;
+            //         const scriptInfo = this.scriptInfo();
+            //         jQuery.getJSON(
+            //             `https://twscripts.dev/count/?script=${prefix}`,
+            //             ({ count }) => {
+            //                 console.debug(
+            //                     `${scriptInfo} This script has been run ${this.formatAsNumber(
+            //                         parseInt(count)
+            //                     )} times.`
+            //                 );
+            //             }
+            //         );
+            //     }
+            // },
     
             // public methods
             addGlobalStyle: function () {
