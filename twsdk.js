@@ -1698,14 +1698,7 @@ window.twSDK = {
     // initialize library
     init: async function (scriptConfig) {
         twSDK._registerScript(() => {
-            const {
-                scriptData,
-                translations,
-                allowedMarkets,
-                allowedScreens,
-                allowedModes,
-                enableCountApi,
-            } = scriptConfig;
+
 
             this.scriptData = scriptData;
             this.translations = translations;
