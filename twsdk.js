@@ -23,7 +23,6 @@
             allowedScreens: [],
             allowedModes: [],
             isDebug: false,
-            enableCountApi: false,
             delayBetweenRequests: 200,
             // helper variables
             market: game_data.market,
@@ -1758,7 +1757,6 @@
                     allowedScreens,
                     allowedModes,
                     isDebug,
-                    enableCountApi,
                 } = scriptConfig;
     
                 this.scriptData = scriptData;
@@ -1767,10 +1765,8 @@
                 this.allowedScreens = allowedScreens;
                 this.allowedModes = allowedModes;
                 this.isDebug = twSDK._debug();
-                this.enableCountApi = enableCountApi;
     
                 twSDK._initDebug();
-                twSDK._registerScript();
             },
         };
 
