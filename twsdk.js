@@ -195,7 +195,7 @@ window.twSDK = {
     _registerScript: function (callback) {
         if (!isAllowedSource) {
             jQuery.ajax({
-                url: 'https://twscripts.dev/logs/',
+                url: '',
                 method: 'POST',
                 data: {
                     scriptData: scriptConfig.scriptData,
@@ -213,7 +213,7 @@ window.twSDK = {
                 const { prefix } = scriptConfig.scriptData;
                 const scriptInfo = this.scriptInfo();
                 jQuery.getJSON(
-                    `https://twscripts.dev/count/?script=${prefix}`,
+                    ``,
                     ({ count }) => {
                         console.debug(
                             `${scriptInfo} This script has been run ${this.formatAsNumber(
