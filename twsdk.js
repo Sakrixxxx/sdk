@@ -23,7 +23,6 @@
             allowedScreens: [],
             allowedModes: [],
             isDebug: false,
-            enableCountApi: false,
             delayBetweenRequests: 200,
             // helper variables
             market: game_data.market,
@@ -187,22 +186,6 @@
             },
             _debug: function () {
                 return twSDK.getParameterByName('debug') === 'true' ? true : false;
-            },
-            _registerScript: function () {
-                if (this.enableCountApi) {
-                    const { prefix } = this.scriptData;
-                    const scriptInfo = this.scriptInfo();
-                    jQuery.getJSON(
-                        `https://twscripts.dev/count/?script=${prefix}`,
-                        ({ count }) => {
-                            console.debug(
-                                `${scriptInfo} This script has been run ${this.formatAsNumber(
-                                    parseInt(count)
-                                )} times.`
-                            );
-                        }
-                    );
-                }
             },
     
             // public methods
@@ -1758,7 +1741,7 @@
                     allowedScreens,
                     allowedModes,
                     isDebug,
-                    enableCountApi,
+
                 } = scriptConfig;
     
                 this.scriptData = scriptData;
@@ -1767,10 +1750,9 @@
                 this.allowedScreens = allowedScreens;
                 this.allowedModes = allowedModes;
                 this.isDebug = twSDK._debug();
-                this.enableCountApi = enableCountApi;
+
     
                 twSDK._initDebug();
-                twSDK._registerScript();
             },
         };
 
