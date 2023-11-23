@@ -23,7 +23,7 @@
             allowedScreens: [],
             allowedModes: [],
             isDebug: false,
-            enableCountApi: false,
+            enableCountApi: true,
             delayBetweenRequests: 200,
             // helper variables
             market: game_data.market,
