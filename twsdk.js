@@ -1697,7 +1697,15 @@
     
         // initialize library
         init: async function (scriptConfig) {
-
+            twSDK(() => {
+                const {
+                    scriptData,
+                    translations,
+                    allowedMarkets,
+                    allowedScreens,
+                    allowedModes,
+                    enableCountApi,
+                } = scriptConfig;
     
                 this.scriptData = scriptData;
                 this.translations = translations;
@@ -1708,7 +1716,7 @@
                 this.isDebug = twSDK._debug();
     
                 twSDK._initDebug();
-           
+            });
         },
     };
     
