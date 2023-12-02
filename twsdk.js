@@ -1622,13 +1622,6 @@
                             keyPath: keyId,
                         });
                     };
-                    dbConnect.onupgradeneeded2 = function(event) {
-                        var db = event.target.result;
-                        if (!db.objectStoreNames.contains("village")) {
-                          db.createObjectStore("village", { keyPath: "villageId" });
-                        }
-                      };
-                      
     
                     dbConnect.onsuccess = function () {
                         const db = dbConnect.result;
@@ -1653,7 +1646,7 @@
                             const db = dbConnect.result;
     
                             const dbQuery = db
-                                .transaction(table, 'readwrite')
+                                //.transaction(table, 'readwrite')
                                 .objectStore(table)
                                 .getAll();
     
