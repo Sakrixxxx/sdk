@@ -1488,16 +1488,16 @@
                 const LAST_UPDATED_TIME = localStorage.getItem(
                     `${entity}_last_updated`
                 );
-    
+        
                 // check if entity is allowed and can be fetched
                 const allowedEntities = ['village', 'player', 'ally'];
                 if (!allowedEntities.includes(entity)) {
                     throw new Error(`Entity ${entity} does not exist!`);
                 }
-    
+        
                 // initial world data
                 const worldData = {};
-    
+        
                 const dbConfig = {
                     village: {
                         dbName: 'villagesDb',
@@ -1518,17 +1518,17 @@
                         url: twSDK.worldDataTribes,
                     },
                 };
-    
+        
                 // Helpers: Fetch entity data and save to localStorage
                 const fetchDataAndSave = async () => {
                     const DATA_URL = dbConfig[entity].url;
-    
+        
                     try {
                         // fetch data
                         const response = await jQuery.ajax(DATA_URL);
                         const data = twSDK.csvToArray(response);
                         let responseData = [];
-    
+        
                         // prepare data to be saved in db
                         switch (entity) {
                             case 'village':
@@ -1591,7 +1591,7 @@
                             default:
                                 return [];
                         }
-    
+        
                         // save data in db
                         saveToIndexedDbStorage(
                             dbConfig[entity].dbName,
@@ -1599,72 +1599,72 @@
                             dbConfig[entity].key,
                             responseData
                         );
-    
+        
                         // update last updated localStorage item
                         localStorage.setItem(
                             `${entity}_last_updated`,
                             Date.parse(new Date())
                         );
-    
+        
                         return responseData;
                     } catch (error) {
                         throw Error(`Error fetching ${DATA_URL}`);
                     }
                 };
-    
+        
                 // Helpers: Save to IndexedDb storage
                 async function saveToIndexedDbStorage(dbName, table, keyId, data) {
                     const dbConnect = indexedDB.open(dbName);
-    
+        
                     dbConnect.onupgradeneeded = function () {
                         const db = dbConnect.result;
                         db.createObjectStore(table, {
                             keyPath: keyId,
                         });
                     };
-    
+        
                     dbConnect.onsuccess = function () {
                         const db = dbConnect.result;
                         const transaction = db.transaction(table, 'readwrite');
                         const store = transaction.objectStore(table);
                         store.clear(); // clean store from items before adding new ones
-    
+        
                         data.forEach((item) => {
                             store.put(item);
                         });
-    
+        
                         UI.SuccessMessage('Database updated!');
                     };
                 }
-    
+        
                 // Helpers: Read all villages from indexedDB
                 function getAllData(dbName, table) {
                     return new Promise((resolve, reject) => {
                         const dbConnect = indexedDB.open(dbName);
-    
+        
                         dbConnect.onsuccess = () => {
                             const db = dbConnect.result;
-    
+        
                             const dbQuery = db
-                                //.transaction(table, 'readwrite')
+                                .transaction(table, 'readwrite')
                                 .objectStore(table)
                                 .getAll();
-    
+        
                             dbQuery.onsuccess = (event) => {
                                 resolve(event.target.result);
                             };
-    
+        
                             dbQuery.onerror = (event) => {
                                 reject(event.target.error);
                             };
                         };
-    
+        
                         dbConnect.onerror = (event) => {
                             reject(event.target.error);
                         };
                     });
                 }
-    
+        
                 // Helpers: Transform an array of objects into an array of arrays
                 function objectToArray(arrayOfObjects, entity) {
                     switch (entity) {
@@ -1702,22 +1702,7 @@
                             return [];
                     }
                 }
-                function getCoordinatesByVillageId(villageId, entityData) {
-                    const entity = entityData.find(item => item[0] === villageId);
-                
-                    if (entity) {
-                        return {
-                            villageId: entity[0],
-                            villageName: twSDK.cleanString(entity[1]),
-                            villageX: entity[2],
-                            villageY: entity[3],
-                        };
-                    } else {
-                        throw new Error(`Village with ID ${villageId} not found.`);
-                    }
-                }
-                
-                
+        
                 // decide what to do based on current time and last updated entity time
                 if (LAST_UPDATED_TIME !== null) {
                     if (
@@ -1734,10 +1719,10 @@
                 } else {
                     worldData[entity] = await fetchDataAndSave();
                 }
-    
+        
                 // transform the data so at the end an array of array is returned
                 worldData[entity] = objectToArray(worldData[entity], entity);
-    
+        
                 return worldData[entity];
             },
             
