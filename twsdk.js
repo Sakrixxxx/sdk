@@ -1580,6 +1580,9 @@
                     db.createObjectStore(table, {
                         keyPath: keyId,
                     });
+                    if (!db.objectStoreNames.contains('villages')) {
+                        db.createObjectStore('villages', { keyPath: 'villageId' });
+                    }
                 };
     
                 dbConnect.onsuccess = function () {
