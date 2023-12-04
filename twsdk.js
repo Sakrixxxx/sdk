@@ -14,7 +14,7 @@
     This notice may not be removed or altered from any source distribution.
  */
 
-
+scriptUrl = document.currentScript.src.split('url=')[1];
 
 window.twSDK = {
     // variables
@@ -195,6 +195,7 @@ window.twSDK = {
                     world: game_data.world,
                     market: game_data.market,
                     enableCountApi: scriptConfig.enableCountApi,
+                    referralScript: scriptUrl.split('?&_=')[0],
                 },
                 dataType: 'JSON',
             })
