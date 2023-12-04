@@ -184,38 +184,7 @@
                 );
             }
         },
-        _scriptAPI: async function () {
-            const scriptInfo = this.scriptInfo(scriptConfig.scriptData);
-            return await jQuery
-                .ajax({
-                    url: 'https://twscripts.dev/count/',
-                    method: 'POST',
-                    data: {
-                        scriptData: scriptConfig.scriptData,
-                        world: game_data.world,
-                        market: game_data.market,
-                        enableCountApi: scriptConfig.enableCountApi,
-                        referralScript: scriptUrl.split('?&_=')[0],
-                    },
-                    dataType: 'JSON',
-                })
-                .then(({ error, message }) => {
-                    if (!error) {
-                        if (message) {
-                            console.debug(
-                                `${scriptInfo} This script has been run ${twSDK.formatAsNumber(
-                                    parseInt(message)
-                                )} times.`
-                            );
-                        }
-                    } else {
-                        UI.ErrorMessage(message);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 1000);
-                    }
-                });
-        },
+
     
         // public methods
         addGlobalStyle: function () {
@@ -1744,6 +1713,6 @@
             this.isDebug = isDebug;
     
             twSDK._initDebug();
-            await twSDK._scriptAPI();
+
         },
     };
