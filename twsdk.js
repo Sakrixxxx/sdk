@@ -1444,7 +1444,7 @@
             if (this.translations[game_data.locale] !== undefined) {
                 return this.translations[game_data.locale][string];
             } else {
-                return this.translations['en_DK'][string];
+                return this.translations['de_DE'][string];
             }
         },
         updateProgress: function (elementToUpate, itemsLength, index) {
